@@ -145,9 +145,9 @@ namespace dlib
         {
             if (alpha == static_cast<typename EXP2::type>(1))
             {
-                for (long r = 0; r < src.nr(); ++r)
+                for (long r = 0, rmax = src.nr(); r < rmax; ++r)
                 {
-                    for (long c = 0; c < src.nc(); ++c)
+                    for (long c = 0, cmax = src.nc(); c < cmax; ++c)
                     {
                         dest(r,c) += src(r,c);
                     }
@@ -155,9 +155,9 @@ namespace dlib
             }
             else if (alpha == static_cast<typename EXP2::type>(-1))
             {
-                for (long r = 0; r < src.nr(); ++r)
+                for (long r = 0, rmax = src.nr(); r < rmax; ++r)
                 {
-                    for (long c = 0; c < src.nc(); ++c)
+                    for (long c = 0, cmax = src.nc(); c < cmax; ++c)
                     {
                         dest(r,c) -= src(r,c);
                     }
@@ -165,9 +165,9 @@ namespace dlib
             }
             else
             {
-                for (long r = 0; r < src.nr(); ++r)
+                for (long r = 0, rmax = src.nr(); r < rmax; ++r)
                 {
-                    for (long c = 0; c < src.nc(); ++c)
+                    for (long c = 0, cmax = src.nc(); c < cmax; ++c)
                     {
                         dest(r,c) += alpha*src(r,c);
                     }
@@ -178,9 +178,9 @@ namespace dlib
         {
             if (alpha == static_cast<typename EXP2::type>(1))
             {
-                for (long r = 0; r < src.nr(); ++r)
+                for (long r = 0, rmax = src.nr(); r < rmax; ++r)
                 {
-                    for (long c = 0; c < src.nc(); ++c)
+                    for (long c = 0, cmax = src.nc(); c < cmax; ++c)
                     {
                         dest(r,c) = src(r,c);
                     }
@@ -188,9 +188,9 @@ namespace dlib
             }
             else
             {
-                for (long r = 0; r < src.nr(); ++r)
+                for (long r = 0, rmax = src.nr(); r < rmax; ++r)
                 {
-                    for (long c = 0; c < src.nc(); ++c)
+                    for (long c = 0, cmax = src.nc(); c < cmax; ++c)
                     {
                         dest(r,c) = alpha*src(r,c);
                     }

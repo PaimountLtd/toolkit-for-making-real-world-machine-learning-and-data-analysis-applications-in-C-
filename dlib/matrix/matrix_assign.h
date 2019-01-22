@@ -33,9 +33,9 @@ namespace dlib
             T& m
         )
         {
-            for (long r = 0; r < m.nr(); ++r)
+            for (long r = 0, rmax = m.nr(); r < rmax; ++r)
             {
-                for (long c = 0; c < m.nc(); ++c)
+                for (long c = 0, cmax = m.nc(); c < cmax; ++c)
                 {
                     m(r,c) = 0;
                 }

@@ -237,30 +237,30 @@ namespace dlib
         // assign the top border
         for (long r = 0; r < y_border_size; ++r)
         {
-            for (long c = 0; c < img.nc(); ++c)
+            for (long c = 0, cmax = img.nc(); c < cmax; ++c)
             {
                 img[r][c] = p;
             }
         }
 
         // assign the bottom border
-        for (long r = img.nr()-y_border_size; r < img.nr(); ++r)
+        for (long r = img.nr()-y_border_size, rmax = img.nr(); r < rmax; ++r)
         {
-            for (long c = 0; c < img.nc(); ++c)
+            for (long c = 0, cmax = img.nc(); c < cmax; ++c)
             {
                 img[r][c] = p;
             }
         }
 
         // now assign the two sides
-        for (long r = y_border_size; r < img.nr()-y_border_size; ++r)
+        for (long r = y_border_size, rmax = img.nr() - y_border_size; r < rmax; ++r)
         {
             // left border
             for (long c = 0; c < x_border_size; ++c)
                 img[r][c] = p;
 
             // right border
-            for (long c = img.nc()-x_border_size; c < img.nc(); ++c)
+            for (long c = img.nc()-x_border_size, cmax = img.nc(); c < cmax; ++c)
                 img[r][c] = p;
         }
     }
