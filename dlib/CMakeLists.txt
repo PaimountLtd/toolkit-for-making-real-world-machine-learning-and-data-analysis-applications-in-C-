@@ -280,6 +280,7 @@ if (NOT TARGET dlib)
 
    if (DLIB_ISO_CPP_ONLY)
       add_library(dlib ${source_files} )
+      add_library(dlib_NO_AVX ${source_files} )
    else()
 
       set(source_files ${source_files}
@@ -812,6 +813,7 @@ if (NOT TARGET dlib)
          cuda_add_library(dlib ${source_files} )
       else()
          add_library(dlib ${source_files} )
+         add_library(dlib_NO_AVX ${source_files} )
       endif()
 
    endif ()  ##### end of if NOT DLIB_ISO_CPP_ONLY ##########################################################
@@ -953,4 +955,10 @@ if (COMMAND pybind11_add_module)
    set_target_properties(dlib PROPERTIES CUDA_VISIBILITY_PRESET "hidden")
 endif()
 
+target_compile_definitions(dlib
+      PRIVATE -DUSE_AVX_INSTRUCTIONS=ON)
+target_compile_definitions(dlib_NO_AVX
+      PRIVATE -DUSE_AVX_INSTRUCTIONS=OFF)
 add_library(dlib::dlib ALIAS dlib)
+add_library(dlib::dlib_NO_AVX ALIAS dlib_NO_AVX)
+
