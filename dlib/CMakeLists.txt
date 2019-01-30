@@ -956,9 +956,9 @@ if (COMMAND pybind11_add_module)
 endif()
 
 target_compile_definitions(dlib
-      PRIVATE -DUSE_AVX_INSTRUCTIONS=ON)
+      PRIVATE -DUSE_AVX_INSTRUCTIONS=ON -DUSE_SSE4_INSTRUCTIONS=ON)
 target_compile_definitions(dlib_NO_AVX
-      PRIVATE -DUSE_AVX_INSTRUCTIONS=OFF)
+      PRIVATE -DUSE_AVX_INSTRUCTIONS=OFF -DUSE_SSE4_INSTRUCTIONS=OFF)
 add_library(dlib::dlib ALIAS dlib)
 add_library(dlib::dlib_NO_AVX ALIAS dlib_NO_AVX)
 
