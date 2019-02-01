@@ -64,55 +64,14 @@ set(intel_archs x86_64 i386 i686 AMD64 amd64 x86)
 # Setup some options to allow a user to enable SSE and AVX instruction use.  
 if ((";${gcc_like_compilers};" MATCHES ";${CMAKE_CXX_COMPILER_ID};")  AND
    (";${intel_archs};"        MATCHES ";${CMAKE_SYSTEM_PROCESSOR};") AND NOT USE_AUTO_VECTOR)
-   option(USE_SSE2_INSTRUCTIONS "Compile your program with SSE2 instructions" OFF)
-   option(USE_SSE4_INSTRUCTIONS "Compile your program with SSE4 instructions" OFF)
-   option(USE_AVX_INSTRUCTIONS  "Compile your program with AVX instructions"  OFF)
-   if(USE_AVX_INSTRUCTIONS)
-      list(APPEND active_compile_opts -mavx)
-      message(STATUS "Enabling AVX instructions")
-   elseif (USE_SSE4_INSTRUCTIONS)
-      list(APPEND active_compile_opts -msse4)
-      message(STATUS "Enabling SSE4 instructions")
-   elseif(USE_SSE2_INSTRUCTIONS)
-      list(APPEND active_compile_opts -msse2)
-      message(STATUS "Enabling SSE2 instructions")
-   endif()
+    list(APPEND active_compile_opts_ext -mavx)
 elseif (MSVC OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC") # else if using Visual Studio 
-   # Use SSE2 by default when using Visual Studio.
-   option(USE_SSE2_INSTRUCTIONS "Compile your program with SSE2 instructions" ON)
-   option(USE_SSE4_INSTRUCTIONS "Compile your program with SSE4 instructions" OFF)
-   option(USE_AVX_INSTRUCTIONS  "Compile your program with AVX instructions"  OFF)
-
-   include(CheckTypeSize)
-   check_type_size( "void*" SIZE_OF_VOID_PTR)
-   if(USE_AVX_INSTRUCTIONS)
-      list(APPEND active_compile_opts /arch:AVX)
-      message(STATUS "Enabling AVX instructions")
-   elseif (USE_SSE4_INSTRUCTIONS)
-      # Visual studio doesn't have an /arch:SSE2 flag when building in 64 bit modes.
-      # So only give it when we are doing a 32 bit build.
-      if (SIZE_OF_VOID_PTR EQUAL 4)
-         list(APPEND active_compile_opts /arch:SSE2)
-      endif()
-      message(STATUS "Enabling SSE4 instructions")
-      list(APPEND active_preprocessor_switches "-DDLIB_HAVE_SSE2")
-      list(APPEND active_preprocessor_switches "-DDLIB_HAVE_SSE3")
-      list(APPEND active_preprocessor_switches "-DDLIB_HAVE_SSE41")
-   elseif(USE_SSE2_INSTRUCTIONS)
-      # Visual studio doesn't have an /arch:SSE2 flag when building in 64 bit modes.
-      # So only give it when we are doing a 32 bit build.
-      if (SIZE_OF_VOID_PTR EQUAL 4)
-         list(APPEND active_compile_opts /arch:SSE2)
-      endif()
-      message(STATUS "Enabling SSE2 instructions")
-      list(APPEND active_preprocessor_switches "-DDLIB_HAVE_SSE2")
-   endif()
-
+    list(APPEND active_compile_opts_ext /arch:AVX)
 elseif((";${gcc_like_compilers};" MATCHES ";${CMAKE_CXX_COMPILER_ID};")  AND
         ("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "^arm"))
    option(USE_NEON_INSTRUCTIONS "Compile your program with ARM-NEON instructions" OFF)
    if(USE_NEON_INSTRUCTIONS)
-      list(APPEND active_compile_opts -mfpu=neon)
+      list(APPEND active_compile_opts_ext -mfpu=neon)
       message(STATUS "Enabling ARM-NEON instructions")
    endif()
 endif()
